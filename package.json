@@ -6,19 +6,46 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "start-storybook -s ./public -p  6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "aos": "^2.3.4",
+    "axios": "^1.2.2",
+    "classnames": "^2.3.2",
+    "js-cookie": "^3.0.1",
+    "jwt-decode": "^3.1.2",
     "next": "12.3.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-number-format": "4.9.0",
+    "react-toastify": "^9.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@storybook/addon-actions": "^6.5.13",
+    "@storybook/addon-essentials": "^6.5.13",
+    "@storybook/addon-interactions": "^6.5.13",
+    "@storybook/addon-links": "^6.5.13",
+    "@storybook/builder-webpack5": "^6.5.13",
+    "@storybook/manager-webpack5": "^6.5.13",
+    "@storybook/react": "^6.5.13",
+    "@storybook/testing-library": "^0.0.13",
+    "@types/aos": "^3.0.4",
     "@types/node": "18.11.5",
     "@types/react": "18.0.22",
     "@types/react-dom": "18.0.7",
-    "eslint": "8.26.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "babel-loader": "^8.2.5",
+    "eslint": "^8.0.1",
     "eslint-config-next": "12.3.1",
-    "typescript": "4.8.4"
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-storybook": "^0.6.6",
+    "typescript": "*"
   }
 }
