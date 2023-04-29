@@ -9,7 +9,7 @@ export default function FeaturedGame() {
 
     const getFeatureGameList = useCallback(async () => {
         const data = await getFeaturedGame();
-        console.log('data', data);
+  
         setGameList(data);
     }, [getFeaturedGame]);
 
@@ -26,7 +26,7 @@ export default function FeaturedGame() {
                     data-aos="fade-up">
                     {gameList.map((item : GameItemTypes) => {
 
-                        // console.log('oke', item);
+                      
                         return (
                             <GameItem
                                 key={item._id}

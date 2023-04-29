@@ -16,7 +16,7 @@ export default function profile() {
    
     useEffect(()=>{
         const token = Cookies.get('token');
-        console.log('token:',token)
+    
         if(token){
             const jwtToken =atob(token);
             const payload:JWTPayLoadTypes = jwtDecode(jwtToken);

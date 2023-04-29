@@ -23,10 +23,10 @@ export default function CheckoutConfirmation() {
             name: dataTopUp.bankAccountName,
             accountUser: dataTopUp.verifyID,
         };
+
+        
       const response = await setCheckout(data);
-      console.log('====================================');
-      console.log(response);
-      console.log('====================================');
+      
      
       if (response.error) {
         toast.error(response.message)

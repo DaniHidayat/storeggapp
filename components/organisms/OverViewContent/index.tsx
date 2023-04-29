@@ -1,8 +1,29 @@
+import { useCallback, useEffect, useState } from "react"
 import Categori from "./Categori"
 import TableRows from "./TableRows"
-
+import { toast } from "react-toastify";
+import { getMemberOverview } from "../../../services/member";
+import { useRouter } from "next/router";
+import { HistoryTransactionTypes, TopUpCategoriesTypes } from "../../../services/data-types";
 export default function OverViewContent() {
+   const [count,setCount] = useState([]);
+    
+   const [data,setData] = useState([]);
 
+   const getMemberOverviewAPI = useCallback(async()=>{
+    const response = await getMemberOverview();
+          // Do something with the response data
+          if (response.error) {
+            toast.error(response.message)
+        }else{
+         setCount(response.data.count);
+         setData(response.data.data);
+        }
+   },[]);
+    useEffect(() => {
+        getMemberOverviewAPI();
+      }, []);    
+      const IMG = process.env.NEXT_PUBLIC_IMAGE;  
     return (
         <main className="main-wrapper">
             <div className="ps-lg-0">
@@ -11,9 +32,12 @@ export default function OverViewContent() {
                     <p className="text-lg fw-medium color-palette-1 mb-14">Top Up Categories</p>
                     <div className="main-content">
                         <div className="row">
-                            <Categori nominal={18500000} icon="icon-desktop">Game <br />Desktop</Categori>
-                            <Categori nominal={7850000} icon="icon-mobile">Game <br />Mobile</Categori>
-                            <Categori nominal={70000} icon="icon-desktop">Other <br />Categories</Categori>                    
+                            {count.map((item: TopUpCategoriesTypes) =>{
+                                return(
+                                <Categori key={item._id} nominal={item.value} icon="ic-desktop">{item.name}</Categori>
+                            )})}
+
+                            
                         </div>
                     </div>
                 </div>
@@ -30,10 +54,20 @@ export default function OverViewContent() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <TableRows title="Mobile Lagend" categori="Mobile" item={200} price={203000} status="Pending" image="overview-1" />
-                                <TableRows title="Call of Duty:moderen" categori="Desktop" item={200} price={203000} status="Success" image="overview-2" />
-                                <TableRows title="Class of clans" categori="Mobile" item={200} price={203000} status="Failed" image="overview-3" />
-                                <TableRows title="The royal game" categori="Desktop" item={200} price={203000} status="Pending" image="overview-4" />
+                                {data.map((item:HistoryTransactionTypes)=>{
+                                    return (
+                                    <TableRows 
+                                    key={item._id}
+                                    title={item.historyVoucherTopup.gameName} 
+                                    categori={item.historyVoucherTopup.category}
+                                    item={`${item.historyVoucherTopup.coinQuantity} ${item.historyVoucherTopup.coinName}`} 
+                                    price={item.historyVoucherTopup.price} 
+                                    status={item.status} 
+                                    image={`${IMG}${item.historyVoucherTopup.thumbnail}`} />
+                                    )
+                                })}
+                                
+                                
                                
 
                             </tbody>

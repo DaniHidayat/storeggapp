@@ -1,22 +1,57 @@
+import { useCallback, useEffect, useState } from "react";
 import ButtonTabs from "./ButtonTabs";
 import TableRows from "./TableRows";
+import { getMemberTransactions } from "../../../services/member";
+import { toast } from "react-toastify";
+import NumberFormat from "react-number-format";
+import { HistoryTransactionTypes } from "../../../services/data-types";
 
 export default function TransactionsContent() {
+    const [transactions,setTransactions] = useState([]);
+  
+    const [total,setTotal] = useState(0);
+    const [tab,setTab] = useState('all');
+    const onTabClick = (value)=>{
+       
+        setTab(value);
+        getMemberTransactionsAPI(value);
+    } 
+    const getMemberTransactionsAPI = useCallback(async(value)=>{
+       
+        const response = await getMemberTransactions(value);
+       
+         // Do something with the response data
+         if (response.error) {
+            toast.error(response.message)
+        }else{
+            setTotal(response.data.total)
+            setTransactions(response.data.data)
+        }
+    },[])
+    useEffect(()=>{
+        getMemberTransactionsAPI('all');
+    },[])
+    const IMG = process.env.NEXT_PUBLIC_IMAGE;  
     return (
         <main className="main-wrapper">
             <div className="ps-lg-0">
                 <h2 className="text-4xl fw-bold color-palette-1 mb-30">My Transactions</h2>
                 <div className="mb-30">
                     <p className="text-lg color-palette-2 mb-12">You’ve spent</p>
-                    <h3 className="text-5xl fw-medium color-palette-1">Rp 4.518.000.500</h3>
+                    <h3 className="text-5xl fw-medium color-palette-1"> <NumberFormat value={total}
+                      prefix="Rp."
+                      displayType='text'
+                      thousandSeparator="."
+                      decimalSeparator=','
+                  /></h3>
                 </div>
                 <div className="row mt-30 mb-20">
                     <div className="col-lg-12 col-12 main-content">
                         <div id="list_status_title">
-                            <ButtonTabs title="All Trx" active={true} />
-                            <ButtonTabs title="Success" active={false} />
-                            <ButtonTabs title="Pending" active={false} />
-                            <ButtonTabs title="Failed" active={false} />
+                            <ButtonTabs onClick={()=>onTabClick('all')} title="All Trx" active={tab == 'all'} />
+                            <ButtonTabs onClick={()=>onTabClick('success')}title="Success" active={tab == 'success'} />
+                            <ButtonTabs onClick={()=>onTabClick('pending')}title="Pending" active={tab == 'pending'} />
+                            <ButtonTabs onClick={()=>onTabClick('failed')}title="Failed" active={tab == 'failed'} />
                           
                         </div>
                     </div>
@@ -35,11 +70,21 @@ export default function TransactionsContent() {
                                 </tr>
                             </thead>
                             <tbody id="list_status_item">
-                                <TableRows image="overview-1" title="MObile legend" category="Desktop" item={300000} price={40000} status="Pending" />
-                                <TableRows image="overview-2" title="MObile legend" category="Desktop" item={300000} price={40000} status="Pending" />
-                                <TableRows image="overview-3" title="MObile legend" category="Desktop" item={300000} price={40000} status="Success" />
-                                <TableRows image="overview-4" title="MObile legend" category="Desktop" item={300000} price={40000} status="Failed" />
-                            
+                                {transactions.map((item:HistoryTransactionTypes)=>{
+                                    return (
+                                         <TableRows
+                                         key={item._id}
+                                         image={`${IMG}${item.historyVoucherTopup.thumbnail}`} 
+                                         title={item.historyVoucherTopup.gameName}
+                                         category={item.historyVoucherTopup.category}
+                                         item={`${item.historyVoucherTopup.coinQuantity} ${item.historyVoucherTopup.coinName}`} 
+                                         price={item.historyVoucherTopup.price} 
+                                         status={item.status}
+                                         id={item._id} />
+                                    )
+                                })}
+                               
+                                
                             </tbody>
                         </table>
                     </div>

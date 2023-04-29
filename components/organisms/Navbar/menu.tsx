@@ -1,5 +1,5 @@
 import Cx from 'classnames';
-import Link from 'next/Link';
+import Link from 'next/link';
 interface MenuProps{
     title: string;
     active?: boolean;

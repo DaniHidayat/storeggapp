@@ -3,7 +3,7 @@ interface PaymentItemProps{
     bankId: string,
     type: string,
     name:string,
-    onChange: ()=>void;
+    onChange: ()=>void
 }
 export default function PaymentItem(props:PaymentItemProps) {
     const { bankId, type, name,onChange } = props;

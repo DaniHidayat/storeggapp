@@ -30,9 +30,9 @@ export default function TopupForm(props: TopupFormProps) {
    }
    const onSubmit = ()=>{
    
-    if(verifyID === ''|| bankAccountName ==='' || nominalItem === {} ||paymentItem === {}){
-      toast.error('Silahkan isi semua data!!!')
-    }else{
+    if (verifyID === '' || bankAccountName === '' || Object.keys(nominalItem).length === 0 || Object.keys(paymentItem).length === 0) {
+        toast.error('Silahkan isi semua data!!!')
+      }else{
 
         const data ={
             verifyID,
@@ -48,7 +48,7 @@ export default function TopupForm(props: TopupFormProps) {
 
    }
     return (
-        <form action="./checkout.html" method="POST">
+        <>
             <div className="pt-md-50 pt-30">
                 <div className="">
                     <label htmlFor="ID" className="form-label text-lg fw-medium color-palette-1 mb-10">Verify
@@ -122,6 +122,6 @@ export default function TopupForm(props: TopupFormProps) {
                     className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg">Continue</button>
 
             </div>
-        </form>
+        </>
     )
 }

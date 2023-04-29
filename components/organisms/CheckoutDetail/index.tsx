@@ -38,7 +38,7 @@ export default function () {
             <h2 className="fw-bold text-xl color-palette-1 mb-20">Purchase Details</h2>
             <p className="text-lg color-palette-1 mb-20">Your Game ID <span
                 className="purchase-details">masayoshizero</span></p>
-            <p className="text-lg color-palette-1 mb-20">Order ID <span className="purchase-details">#GG001</span></p>
+            <p className="text-lg color-palette-1 mb-20">Order ID <span className="purchase-details">{dataTopUp.nominalItem._id}</span></p>
             <p className="text-lg color-palette-1 mb-20">Item <span className="purchase-details">{dataTopUp.nominalItem.coinQuantity}{' '}{dataTopUp.nominalItem.coinName}</span></p>
             <p className="text-lg color-palette-1 mb-20">Price <span className="purchase-details"> 
             <NumberFormat value={itemPrice}

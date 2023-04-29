@@ -1,8 +1,11 @@
 
-export interface InputProps{
-
-label: string
+export interface InputProps {
+    label: string;
+    value: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    disabled?: boolean;
 }
+
 export default function input(props: InputProps) {
 
     const { label, ...nativeProps } = props;

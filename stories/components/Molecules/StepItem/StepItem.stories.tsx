@@ -1,20 +1,17 @@
-import { Meta } from "@storybook/react";
+import { Meta, Story } from "@storybook/react";
 import StepItem, { StepItemProps } from "../../../../components/Molecules/StepItem";
 
 export default {
     title: 'Components/Molecules/StepItem',
-    components: StepItem
+    component: StepItem
 } as Meta;
 
-const Template = (args: StepItemProps) => <StepItem{...args} />
+const Template: Story<StepItemProps> = (args) => <StepItem {...args} />
 
 export const Default = Template.bind({});
 
 Default.args = {
     title: '1. Start',
-    icon: 'step1',
+   icon: 'step1',
     desc1: 'Pilih salasatu games',
-    desc2: 'yang ingin anda top up'
-
-
 }

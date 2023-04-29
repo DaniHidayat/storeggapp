@@ -112,7 +112,7 @@ export default function SignUpSuccess() {
                         dan menjadi pemenang!</p>
                 </div>
                 <div className="button-group d-flex flex-column mx-auto">
-                    <a className="btn btn-top-up fw-medium text-lg text-white rounded-pill" href="../index.html"
+                    <a className="btn btn-top-up fw-medium text-lg text-white rounded-pill" href="/"
                         role="button">Top
                         Up</a>
                 </div>

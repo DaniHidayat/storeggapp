@@ -1,12 +1,12 @@
-import { Meta } from "@storybook/react";
+import { Meta, Story } from "@storybook/react";
 import GameItem, { GameItemProps } from "../../../../components/Molecules/GameItem";
 
 export default {
     title: 'Components/Molecules/GameItem',
-    components: GameItem
+    component: GameItem
 } as Meta;
 
-const Template = (args: GameItemProps) => <GameItem{...args} />
+const Template: Story<GameItemProps> = (args) => <GameItem {...args} />
 
 export const Default = Template.bind({});
 
@@ -14,6 +14,4 @@ Default.args = {
     title: 'Super mech',
     category: 'Mobile',
     thumbnail:'/img/Thumbnail-1.png'
-        
-
 }
