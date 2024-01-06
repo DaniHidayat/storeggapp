@@ -2,7 +2,7 @@ import Footer from "./Footer";
 import MenuItem from "./MenuItem";
 import Profile from "./profile";
 import Cookies from 'js-cookie';
-
+import {signOut } from "next-auth/react"
 import {useRouter} from 'next/router'
 interface sidebarPorops{
     activeMenu: 'overview' | 'transactions' | 'settings'
@@ -14,6 +14,7 @@ export default function Sidebar(props: sidebarPorops) {
 
     const onLogOut =()=>{
         Cookies.remove('token');
+        signOut()
         router.push('/sign-in');
         
     }

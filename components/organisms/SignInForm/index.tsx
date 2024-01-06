@@ -6,7 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { setLogin } from "../../../services/auth";
 import jwt_decode from "jwt-decode";
 import Cookies from 'js-cookie'
+import { FaGoogle } from 'react-icons/fa';
+import {signIn,signOut } from "next-auth/react"
 export default function SiginForm() {
+  
     const router = useRouter();
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
@@ -67,6 +70,12 @@ export default function SiginForm() {
                 onClick={onSubmit}
                  className="btn btn-sign-in fw-medium text-lg text-white rounded-pill mb-16"
                     role="button">Continue to Sign In</button>
+                    <button type="button"
+                onClick={signIn}
+                 className="btn btn-sign-in fw-medium text-lg text-white rounded-pill mb-16"
+                    role="button"> <FaGoogle size={24} color="#DB4437" /> 
+                    <span> with Google</span></button>
+                  
 
                 <Link  href="/sign-up">
                 <a className="btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill"

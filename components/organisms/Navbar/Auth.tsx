@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import jwtDecode from "jwt-decode";
 import { useState } from "react";
 import { JWTPayLoadTypes, UserType } from "../../../services/data-types";
-
+import { useSession,signOut } from "next-auth/react"
 import {useRouter} from 'next/router'
 interface AuthProps{
     isLogin: boolean;
@@ -12,8 +12,11 @@ interface AuthProps{
 
 export default function Auth() {
     const [isLogin,setIsLogin] = useState(false);
+    const {data:session} = useSession();
     const [user,setUser] = useState({
         avatar: "",
+        image:"",
+        
        
     });
     const router = useRouter();
@@ -25,6 +28,8 @@ export default function Auth() {
             const userFromPlayload:UserType = payload.player;
             const IMG = process.env.NEXT_PUBLIC_IMAGE;
             user.avatar = `${IMG}/${userFromPlayload.avatar}`;
+            user.image = userFromPlayload.avatar
+           
            setIsLogin(true);
            setUser(user);
         }
@@ -32,6 +37,7 @@ export default function Auth() {
     },[])
    const  onLogout = ()=>{
     Cookies.remove('token');
+    signOut()
     router.push('/');
     setIsLogin(false)
    } 
@@ -42,7 +48,7 @@ export default function Auth() {
                 <div>
                     <a className="dropdown-toggle ms-lg-40" href="#" role="button" id="dropdownMenuLink"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src={user.avatar} className="rounded-circle" width="40" height="40"
+                        <img src={ user.image == undefined ? session?.user?.image : user.avatar} className="rounded-circle" width="40" height="40"
                             alt="" />
                     </a>
 

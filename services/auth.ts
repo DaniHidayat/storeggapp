@@ -11,7 +11,24 @@ export async function setSignUp(data:FormData) {
         data
     });
 }
+export async function setSignUpGoogle(data) {
+    const url =  `${ROOT_API}/${API_VERSION}/auth/signupGoogle`;
+    return callAPI({
+        url,
+        method:'POST',
+        data
+    });
+}
 export async function setLogin(data: LoginTypes) {
+
+    const url = `${ROOT_API}/${API_VERSION}/auth/signin`;
+    return callAPI({
+        url,
+        method:'POST',
+        data
+    });
+}
+export async function setLoginGoogle(data: any) {
 
     const url = `${ROOT_API}/${API_VERSION}/auth/signin`;
     return callAPI({

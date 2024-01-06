@@ -19,7 +19,8 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-function MyApp({ Component, pageProps }: AppProps) {
+import {SessionProvider} from 'next-auth/react';
+function MyApp({ Component, pageProps,session }: AppProps  & { session: any }) {
   return (
     <>
       <Head>
@@ -38,7 +39,10 @@ function MyApp({ Component, pageProps }: AppProps) {
      
        
       </Head>
+      <SessionProvider session={session}>
       <Component {...pageProps} />
+      </SessionProvider>
+     
       <ToastContainer/>
       {/* Bostrap js */}
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"

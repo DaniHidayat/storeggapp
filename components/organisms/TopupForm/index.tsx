@@ -15,6 +15,7 @@ export default function TopupForm(props: TopupFormProps) {
     const [bankAccountName,setBankAccountName] = useState('');
     const [nominalItem,setNominalItem] = useState({});
     const [paymentItem,setPaymentItem] = useState({});
+    const [selectPayment,setSelectPayment] = useState("");
    const onNominalItemChange = (data:NominalTypes)=>{
    
     setNominalItem(data)
@@ -25,13 +26,22 @@ export default function TopupForm(props: TopupFormProps) {
         payment,
         bank,
     }
+    if(payment.type == "Payment Gateway"){
+    setSelectPayment(payment.type);
+    }
+    
     setPaymentItem(data)
+    
+
     
    }
    const onSubmit = ()=>{
    
-    if (verifyID === '' || bankAccountName === '' || Object.keys(nominalItem).length === 0 || Object.keys(paymentItem).length === 0) {
-        toast.error('Silahkan isi semua data!!!')
+    if (verifyID === '' || Object.keys(nominalItem).length === 0 || Object.keys(paymentItem).length === 0) {
+      
+        if(selectPayment  != "Payment Gateway"){
+            toast.error('Silahkan isi semua data!!!')
+        }
       }else{
 
         const data ={
@@ -108,7 +118,8 @@ export default function TopupForm(props: TopupFormProps) {
                     </div>
                 </fieldset>
             </div>
-            <div className="pb-50">
+            {selectPayment != "Payment Gateway" && (
+                <div className="pb-50" >
                 <label htmlFor="bankAccount" className="form-label text-lg fw-medium color-palette-1 mb-10">Bank
                     Account
                     Name</label>
@@ -116,7 +127,9 @@ export default function TopupForm(props: TopupFormProps) {
                     name="bankAccount" aria-describedby="bankAccount"
                     placeholder="Enter your Bank Account Name" 
                     value={bankAccountName} onChange={(e)=>setBankAccountName(e.target.value)} />
-            </div>
+                </div>
+            )}
+           
             <div className="d-sm-block d-flex flex-column w-100">
                 <button onClick={onSubmit} type="button"
                     className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg">Continue</button>

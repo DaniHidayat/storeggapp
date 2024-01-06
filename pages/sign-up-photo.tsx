@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { setSignUp } from '../services/auth';
 import { getGameCategory } from '../services/player';
 import { CategoryTypes } from '../services/data-types';
-
+import { useSession,signIn,signOut,getSession } from "next-auth/react"
 export default function SignUpPhoto() {
   const [categories, setCategories] = useState([]);
   const [favorite, setFavorite] = useState('');
@@ -26,11 +26,17 @@ export default function SignUpPhoto() {
 
   useEffect(() => {
     getGameCategoryAPI();
+  
   }, []);
 
   useEffect(() => {
     const getLocalForm = localStorage.getItem('user-form');
-    setLocalForm(JSON.parse(getLocalForm!));
+    if (getLocalForm == null) {
+      router.push('/sign-up');
+    }else{
+      setLocalForm(JSON.parse(getLocalForm!));
+    }
+   
   }, []);
 
   const onSubmit = async () => {
@@ -50,7 +56,11 @@ export default function SignUpPhoto() {
 
     const result = await setSignUp(data);
     if (result.error) {
+      signOut();
       toast.error(result.message);
+    
+      localStorage.removeItem('user-form');
+      router.push('/sign-up');
     } else {
       toast.success('Register Berhasil');
       router.push('/sign-up-success');

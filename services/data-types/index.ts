@@ -50,6 +50,7 @@ export interface JWTPayLoadTypes{
   player:UserType;
   iat: number
 }
+
 export interface CheckoutTypes{
     voucher: string,
     nominal:string,
@@ -57,6 +58,7 @@ export interface CheckoutTypes{
     bank:string,
     name: string,
     accountUser:string,
+    numberTransaction:string
 }
 export interface HistoryVoucherTopupTypes{
     category:string,

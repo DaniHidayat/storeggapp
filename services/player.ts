@@ -1,8 +1,9 @@
 import axios from "axios";
 import callAPI from "../config";
 import { CheckoutTypes } from "./data-types";
+import { log } from "console";
  const ROOT_API = process.env.NEXT_PUBLIC_API;
-    const API_VERSION = 'api/v1';
+ const API_VERSION = 'api/v1';
 export async function getFeaturedGame() {
    
     const URL = 'players/landingPage';
@@ -33,8 +34,21 @@ export async function getGameCategory() {
     
     return axiosResponse.data;
 }
+
+export async function paymentMidtrans(data: { gross_amount: any; order_id: any; }) {
+
+    const url = `${ROOT_API}/${API_VERSION}/midtrans/payment`;
+    console.log(data)
+    return callAPI({
+        url,
+        method:"POST",
+        data,
+        token:true
+    });
+}
 export async function setCheckout(data:CheckoutTypes) {
     const url = `${ROOT_API}/${API_VERSION}/players/checkout`;
+   
     return callAPI({
         url,
         method:"POST",
